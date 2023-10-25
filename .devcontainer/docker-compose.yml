@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  avd-testing:
+    build: .
+    image: "avd-testing:latest"
+    container_name: avd-testing
+    restart: always
+    command: ['tail', '-f', '/dev/null']
+
+    environment:
+      - TZ=America/New_York
+      - DEBIAN_FRONTEND=noninteractive
+    volumes:
+      - ../:/workspace
