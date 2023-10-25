@@ -8,4 +8,4 @@ help: ## Display help message
 
 .PHONY: build
 build: ## Build Configs
-	ansible-playbook playbooks/build.yml -e "target_hosts=SITE1_FABRIC"
+	ansible-playbook playbooks/build.yml -e "target_hosts=DC_FABRIC"

@@ -1,5 +1,5 @@
 ---
-fabric_name: SITE1_FABRIC
+fabric_name: DC_FABRIC
 
 # Set Design Type to L2ls
 design:

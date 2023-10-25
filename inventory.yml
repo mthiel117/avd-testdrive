@@ -1,23 +1,23 @@
 ---
-SITE1:
+DC:
   children:
-    SITE1_FABRIC:
+    DC_FABRIC:
       children:
-        SITE1_SPINES:
+        DC_SPINES:
           hosts:
             s1-spine1:
             s1-spine2:
-        SITE1_LEAFS:
+        DC_LEAFS:
           hosts:
             s1-leaf1:
             s1-leaf2:
             s1-leaf3:
             s1-leaf4:
-    SITE1_FABRIC_SERVICES:
+    DC_FABRIC_SERVICES:
       children:
-        SITE1_SPINES:
-        SITE1_LEAFS:
-    SITE1_FABRIC_PORTS:
+        DC_SPINES:
+        DC_LEAFS:
+    DC_FABRIC_PORTS:
       children:
-        SITE1_SPINES:
-        SITE1_LEAFS:
+        DC_SPINES:
+        DC_LEAFS:
