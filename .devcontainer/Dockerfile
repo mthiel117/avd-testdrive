@@ -35,6 +35,6 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
     -a 'alias python="python3"'
 
 LABEL maintainer="Mark Thiel <mthiel@arista.com>" \
-      version="1.0.0"
+    version="1.0.0"
 
 ENV SHELL /bin/zsh
