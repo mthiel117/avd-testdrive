@@ -21,9 +21,9 @@ COPY requirements.yml requirements.yml
 
 RUN pip3 install -r requirements.txt
 
-RUN adduser --quiet --disabled-password --shell /bin/zsh --home /home/admin --gecos "User" admin
+# RUN adduser --quiet --disabled-password --shell /bin/zsh --home /home/admin --gecos "User" admin
 
-RUN echo "admin:admin" | chpasswd &&  usermod -aG sudo admin
+# RUN echo "admin:admin" | chpasswd &&  usermod -aG sudo admin
 
 RUN ansible-galaxy collection install -r requirements.yml --force
 
