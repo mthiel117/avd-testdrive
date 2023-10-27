@@ -4,7 +4,6 @@
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "avd-testing",
     "features": {
-		"ghcr.io/shinepukur/devcontainer-features/vale:1": {},
         "ghcr.io/devcontainers/features/github-cli:1": {}
 	},
 	"customizations": {

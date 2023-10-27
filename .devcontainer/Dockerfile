@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -21,10 +21,6 @@ COPY requirements.yml requirements.yml
 
 RUN pip3 install -r requirements.txt
 
-# RUN adduser --quiet --disabled-password --shell /bin/zsh --home /home/admin --gecos "User" admin
-
-# RUN echo "admin:admin" | chpasswd &&  usermod -aG sudo admin
-
 RUN ansible-galaxy collection install -r requirements.yml --force
 
 RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.5/zsh-in-docker.sh)" -- \
@@ -33,8 +29,5 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
     -p ssh-agent \
     -a 'alias pip="pip3"' \
     -a 'alias python="python3"'
-
-LABEL maintainer="Mark Thiel <mthiel@arista.com>" \
-    version="1.0.0"
 
 ENV SHELL /bin/zsh
