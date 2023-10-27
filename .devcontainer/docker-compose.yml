@@ -1,10 +1,10 @@
 version: "3.9"
 
 services:
-  avd-testing:
+  avd-dev:
     build: .
-    image: "avd-testing:latest"
-    container_name: avd-testing
+    image: "avd-dev:latest"
+    container_name: avd-dev
     restart: always
     command: ['tail', '-f', '/dev/null']
 
