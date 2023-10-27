@@ -2,6 +2,7 @@
 	"name": "avd-dev",
 	"workspaceFolder": "/workspace",
 	"dockerComposeFile": "docker-compose.yml",
+    "postStartCommand": "chmod 755 /workspace",
 	"service": "avd-dev",
     "features": {
         "ghcr.io/devcontainers/features/github-cli:1": {}
