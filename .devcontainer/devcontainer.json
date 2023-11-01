@@ -28,7 +28,11 @@
                 "oderwat.indent-rainbow",
                 "AykutSarac.jsoncrack-vscode",
                 "hilleer.yaml-plus-json"
-	        ]
+	        ],
+            "settings": {
+                "terminal.integrated.fontSize": 18,
+                "editor.fontSize": 18
+            }
         }
     },
     "forwardPorts": [8000, 8000],
