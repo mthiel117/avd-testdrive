@@ -13,6 +13,13 @@ The initial startup topology is configured as an L2LS design, but can be modifie
 
 ![L2LS Topology](/images/avd-testing-topo.png)
 
+## Getting started
+
+1. Make a copy of this repo template, by choosing `Use this template` and select `Create a new repository`
+2. From the new repository, under `Code` choose `Create a Codespace` to launch a devcontainer
+
+This will launch a devcontainer in GitHub with VS Code and all the tools needed to run [AVD](https://avd.arista.com/). From the terminal you can run the build.yml playbook to generate configs.
+
 ## Build Configs and Docs
 
 ``` bash
