@@ -183,7 +183,7 @@ daemon TerminAttr
 
 | Domain-id | Local-interface | Peer-address | Peer-link |
 | --------- | --------------- | ------------ | --------- |
-| SPINES | Vlan4094 | 10.1.253.0 | Port-Channel1 |
+| SPINES | Vlan4094 | 10.1.253.0 | Port-Channel5 |
 
 Dual primary detection is disabled.
 
@@ -195,7 +195,7 @@ mlag configuration
    domain-id SPINES
    local-interface Vlan4094
    peer-address 10.1.253.0
-   peer-link Port-Channel1
+   peer-link Port-Channel5
    reload-delay mlag 300
    reload-delay non-mlag 330
 ```
@@ -246,12 +246,20 @@ vlan internal order ascending range 1006 1199
 
 | VLAN ID | Name | Trunk Groups |
 | ------- | ---- | ------------ |
+| 10 | Ten | - |
+| 20 | Twenty | - |
 | 4093 | LEAF_PEER_L3 | LEAF_PEER_L3 |
 | 4094 | MLAG_PEER | MLAG |
 
 ### VLANs Device Configuration
 
 ```eos
+!
+vlan 10
+   name Ten
+!
+vlan 20
+   name Twenty
 !
 vlan 4093
    name LEAF_PEER_L3
@@ -272,12 +280,12 @@ vlan 4094
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet1 | MLAG_PEER_spine1_Ethernet1 | *trunk | *- | *- | *['LEAF_PEER_L3', 'MLAG'] | 1 |
-| Ethernet2 | LEAF1_Ethernet3 | *trunk | *none | *- | *- | 2 |
-| Ethernet3 | LEAF2_Ethernet3 | *trunk | *none | *- | *- | 2 |
-| Ethernet4 | LEAF3_Ethernet3 | *trunk | *none | *- | *- | 4 |
-| Ethernet5 | LEAF4_Ethernet3 | *trunk | *none | *- | *- | 4 |
-| Ethernet6 | MLAG_PEER_spine1_Ethernet6 | *trunk | *- | *- | *['LEAF_PEER_L3', 'MLAG'] | 1 |
+| Ethernet1 | LEAF1_Ethernet2 | *trunk | *10 | *- | *- | 1 |
+| Ethernet2 | LEAF2_Ethernet2 | *trunk | *10 | *- | *- | 1 |
+| Ethernet3 | LEAF3_Ethernet2 | *trunk | *20 | *- | *- | 3 |
+| Ethernet4 | LEAF4_Ethernet2 | *trunk | *20 | *- | *- | 3 |
+| Ethernet5 | MLAG_PEER_spine1_Ethernet5 | *trunk | *- | *- | *['LEAF_PEER_L3', 'MLAG'] | 5 |
+| Ethernet6 | MLAG_PEER_spine1_Ethernet6 | *trunk | *- | *- | *['LEAF_PEER_L3', 'MLAG'] | 5 |
 
 *Inherited from Port-Channel Interface
 
@@ -286,34 +294,34 @@ vlan 4094
 ```eos
 !
 interface Ethernet1
-   description MLAG_PEER_spine1_Ethernet1
+   description LEAF1_Ethernet2
    no shutdown
    channel-group 1 mode active
 !
 interface Ethernet2
-   description LEAF1_Ethernet3
+   description LEAF2_Ethernet2
    no shutdown
-   channel-group 2 mode active
+   channel-group 1 mode active
 !
 interface Ethernet3
-   description LEAF2_Ethernet3
+   description LEAF3_Ethernet2
    no shutdown
-   channel-group 2 mode active
+   channel-group 3 mode active
 !
 interface Ethernet4
-   description LEAF3_Ethernet3
+   description LEAF4_Ethernet2
    no shutdown
-   channel-group 4 mode active
+   channel-group 3 mode active
 !
 interface Ethernet5
-   description LEAF4_Ethernet3
+   description MLAG_PEER_spine1_Ethernet5
    no shutdown
-   channel-group 4 mode active
+   channel-group 5 mode active
 !
 interface Ethernet6
    description MLAG_PEER_spine1_Ethernet6
    no shutdown
-   channel-group 1 mode active
+   channel-group 5 mode active
 ```
 
 ### Port-Channel Interfaces
@@ -324,37 +332,37 @@ interface Ethernet6
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel1 | MLAG_PEER_spine1_Po1 | switched | trunk | - | - | ['LEAF_PEER_L3', 'MLAG'] | - | - | - | - |
-| Port-Channel2 | RACK1_Po2 | switched | trunk | none | - | - | - | - | 2 | - |
-| Port-Channel4 | RACK2_Po2 | switched | trunk | none | - | - | - | - | 4 | - |
+| Port-Channel1 | RACK1_Po1 | switched | trunk | 10 | - | - | - | - | 1 | - |
+| Port-Channel3 | RACK2_Po1 | switched | trunk | 20 | - | - | - | - | 3 | - |
+| Port-Channel5 | MLAG_PEER_spine1_Po5 | switched | trunk | - | - | ['LEAF_PEER_L3', 'MLAG'] | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
 
 ```eos
 !
 interface Port-Channel1
-   description MLAG_PEER_spine1_Po1
+   description RACK1_Po1
+   no shutdown
+   switchport
+   switchport trunk allowed vlan 10
+   switchport mode trunk
+   mlag 1
+!
+interface Port-Channel3
+   description RACK2_Po1
+   no shutdown
+   switchport
+   switchport trunk allowed vlan 20
+   switchport mode trunk
+   mlag 3
+!
+interface Port-Channel5
+   description MLAG_PEER_spine1_Po5
    no shutdown
    switchport
    switchport mode trunk
    switchport trunk group LEAF_PEER_L3
    switchport trunk group MLAG
-!
-interface Port-Channel2
-   description RACK1_Po2
-   no shutdown
-   switchport
-   switchport trunk allowed vlan none
-   switchport mode trunk
-   mlag 2
-!
-interface Port-Channel4
-   description RACK2_Po2
-   no shutdown
-   switchport
-   switchport trunk allowed vlan none
-   switchport mode trunk
-   mlag 4
 ```
 
 ### Loopback Interfaces
@@ -391,6 +399,8 @@ interface Loopback0
 
 | Interface | Description | VRF |  MTU | Shutdown |
 | --------- | ----------- | --- | ---- | -------- |
+| Vlan10 | Ten | default | - | False |
+| Vlan20 | Twenty | default | - | False |
 | Vlan4093 | MLAG_PEER_L3_PEERING | default | 1500 | False |
 | Vlan4094 | MLAG_PEER | default | 1500 | False |
 
@@ -398,12 +408,26 @@ interface Loopback0
 
 | Interface | VRF | IP Address | IP Address Virtual | IP Router Virtual Address | VRRP | ACL In | ACL Out |
 | --------- | --- | ---------- | ------------------ | ------------------------- | ---- | ------ | ------- |
+| Vlan10 |  default  |  10.10.10.3/24  |  -  |  10.10.10.1  |  -  |  -  |  -  |
+| Vlan20 |  default  |  10.20.20.3/24  |  -  |  10.20.20.1  |  -  |  -  |  -  |
 | Vlan4093 |  default  |  10.1.254.1/31  |  -  |  -  |  -  |  -  |  -  |
 | Vlan4094 |  default  |  10.1.253.1/31  |  -  |  -  |  -  |  -  |  -  |
 
 #### VLAN Interfaces Device Configuration
 
 ```eos
+!
+interface Vlan10
+   description Ten
+   no shutdown
+   ip address 10.10.10.3/24
+   ip virtual-router address 10.10.10.1
+!
+interface Vlan20
+   description Twenty
+   no shutdown
+   ip address 10.20.20.3/24
+   ip virtual-router address 10.20.20.1
 !
 interface Vlan4093
    description MLAG_PEER_L3_PEERING

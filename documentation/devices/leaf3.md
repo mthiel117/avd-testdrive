@@ -180,7 +180,7 @@ daemon TerminAttr
 
 | Domain-id | Local-interface | Peer-address | Peer-link |
 | --------- | --------------- | ------------ | --------- |
-| RACK2 | Vlan4094 | 10.1.253.9 | Port-Channel1 |
+| RACK2 | Vlan4094 | 10.1.253.9 | Port-Channel3 |
 
 Dual primary detection is disabled.
 
@@ -192,7 +192,7 @@ mlag configuration
    domain-id RACK2
    local-interface Vlan4094
    peer-address 10.1.253.9
-   peer-link Port-Channel1
+   peer-link Port-Channel3
    reload-delay mlag 300
    reload-delay non-mlag 330
 ```
@@ -243,11 +243,15 @@ vlan internal order ascending range 1006 1199
 
 | VLAN ID | Name | Trunk Groups |
 | ------- | ---- | ------------ |
+| 20 | Twenty | - |
 | 4094 | MLAG_PEER | MLAG |
 
 ### VLANs Device Configuration
 
 ```eos
+!
+vlan 20
+   name Twenty
 !
 vlan 4094
    name MLAG_PEER
@@ -264,10 +268,11 @@ vlan 4094
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet1 | MLAG_PEER_leaf4_Ethernet1 | *trunk | *- | *- | *['MLAG'] | 1 |
-| Ethernet2 | SPINE1_Ethernet4 | *trunk | *none | *- | *- | 2 |
-| Ethernet3 | SPINE2_Ethernet4 | *trunk | *none | *- | *- | 2 |
-| Ethernet6 | MLAG_PEER_leaf4_Ethernet6 | *trunk | *- | *- | *['MLAG'] | 1 |
+| Ethernet1 | SPINE1_Ethernet3 | *trunk | *20 | *- | *- | 1 |
+| Ethernet2 | SPINE2_Ethernet3 | *trunk | *20 | *- | *- | 1 |
+| Ethernet3 | MLAG_PEER_leaf4_Ethernet3 | *trunk | *- | *- | *['MLAG'] | 3 |
+| Ethernet4 | MLAG_PEER_leaf4_Ethernet4 | *trunk | *- | *- | *['MLAG'] | 3 |
+| Ethernet5 | host2_eth1 | *access | *20 | *- | *- | 5 |
 
 *Inherited from Port-Channel Interface
 
@@ -276,24 +281,29 @@ vlan 4094
 ```eos
 !
 interface Ethernet1
-   description MLAG_PEER_leaf4_Ethernet1
+   description SPINE1_Ethernet3
    no shutdown
    channel-group 1 mode active
 !
 interface Ethernet2
-   description SPINE1_Ethernet4
-   no shutdown
-   channel-group 2 mode active
-!
-interface Ethernet3
-   description SPINE2_Ethernet4
-   no shutdown
-   channel-group 2 mode active
-!
-interface Ethernet6
-   description MLAG_PEER_leaf4_Ethernet6
+   description SPINE2_Ethernet3
    no shutdown
    channel-group 1 mode active
+!
+interface Ethernet3
+   description MLAG_PEER_leaf4_Ethernet3
+   no shutdown
+   channel-group 3 mode active
+!
+interface Ethernet4
+   description MLAG_PEER_leaf4_Ethernet4
+   no shutdown
+   channel-group 3 mode active
+!
+interface Ethernet5
+   description host2_eth1
+   no shutdown
+   channel-group 5 mode active
 ```
 
 ### Port-Channel Interfaces
@@ -304,27 +314,36 @@ interface Ethernet6
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel1 | MLAG_PEER_leaf4_Po1 | switched | trunk | - | - | ['MLAG'] | - | - | - | - |
-| Port-Channel2 | SPINES_Po4 | switched | trunk | none | - | - | - | - | 2 | - |
+| Port-Channel1 | SPINES_Po3 | switched | trunk | 20 | - | - | - | - | 1 | - |
+| Port-Channel3 | MLAG_PEER_leaf4_Po3 | switched | trunk | - | - | ['MLAG'] | - | - | - | - |
+| Port-Channel5 | host2 | switched | access | 20 | - | - | - | - | 5 | - |
 
 #### Port-Channel Interfaces Device Configuration
 
 ```eos
 !
 interface Port-Channel1
-   description MLAG_PEER_leaf4_Po1
+   description SPINES_Po3
+   no shutdown
+   switchport
+   switchport trunk allowed vlan 20
+   switchport mode trunk
+   mlag 1
+!
+interface Port-Channel3
+   description MLAG_PEER_leaf4_Po3
    no shutdown
    switchport
    switchport mode trunk
    switchport trunk group MLAG
 !
-interface Port-Channel2
-   description SPINES_Po4
+interface Port-Channel5
+   description host2
    no shutdown
    switchport
-   switchport trunk allowed vlan none
-   switchport mode trunk
-   mlag 2
+   switchport access vlan 20
+   mlag 5
+   spanning-tree portfast
 ```
 
 ### VLAN Interfaces
