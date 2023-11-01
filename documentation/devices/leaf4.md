@@ -1,4 +1,4 @@
-# s1-leaf3
+# leaf4
 
 ## Table of Contents
 
@@ -49,7 +49,7 @@
 
 | Management Interface | description | Type | VRF | IP Address | Gateway |
 | -------------------- | ----------- | ---- | --- | ---------- | ------- |
-| Management0 | oob_management | oob | default | 192.168.0.14/24 | 192.168.0.1 |
+| Management0 | oob_management | oob | default | 192.168.0.15/24 | 192.168.0.1 |
 
 ##### IPv6
 
@@ -64,7 +64,7 @@
 interface Management0
    description oob_management
    no shutdown
-   ip address 192.168.0.14/24
+   ip address 192.168.0.15/24
 ```
 
 ### DNS Domain
@@ -180,7 +180,7 @@ daemon TerminAttr
 
 | Domain-id | Local-interface | Peer-address | Peer-link |
 | --------- | --------------- | ------------ | --------- |
-| RACK2 | Vlan4094 | 10.1.253.9 | Port-Channel1 |
+| RACK2 | Vlan4094 | 10.1.253.8 | Port-Channel1 |
 
 Dual primary detection is disabled.
 
@@ -191,7 +191,7 @@ Dual primary detection is disabled.
 mlag configuration
    domain-id RACK2
    local-interface Vlan4094
-   peer-address 10.1.253.9
+   peer-address 10.1.253.8
    peer-link Port-Channel1
    reload-delay mlag 300
    reload-delay non-mlag 330
@@ -264,10 +264,10 @@ vlan 4094
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet1 | MLAG_PEER_s1-leaf4_Ethernet1 | *trunk | *- | *- | *['MLAG'] | 1 |
-| Ethernet2 | S1-SPINE1_Ethernet4 | *trunk | *none | *- | *- | 2 |
-| Ethernet3 | S1-SPINE2_Ethernet4 | *trunk | *none | *- | *- | 2 |
-| Ethernet6 | MLAG_PEER_s1-leaf4_Ethernet6 | *trunk | *- | *- | *['MLAG'] | 1 |
+| Ethernet1 | MLAG_PEER_leaf3_Ethernet1 | *trunk | *- | *- | *['MLAG'] | 1 |
+| Ethernet2 | SPINE1_Ethernet5 | *trunk | *none | *- | *- | 2 |
+| Ethernet3 | SPINE2_Ethernet5 | *trunk | *none | *- | *- | 2 |
+| Ethernet6 | MLAG_PEER_leaf3_Ethernet6 | *trunk | *- | *- | *['MLAG'] | 1 |
 
 *Inherited from Port-Channel Interface
 
@@ -276,22 +276,22 @@ vlan 4094
 ```eos
 !
 interface Ethernet1
-   description MLAG_PEER_s1-leaf4_Ethernet1
+   description MLAG_PEER_leaf3_Ethernet1
    no shutdown
    channel-group 1 mode active
 !
 interface Ethernet2
-   description S1-SPINE1_Ethernet4
+   description SPINE1_Ethernet5
    no shutdown
    channel-group 2 mode active
 !
 interface Ethernet3
-   description S1-SPINE2_Ethernet4
+   description SPINE2_Ethernet5
    no shutdown
    channel-group 2 mode active
 !
 interface Ethernet6
-   description MLAG_PEER_s1-leaf4_Ethernet6
+   description MLAG_PEER_leaf3_Ethernet6
    no shutdown
    channel-group 1 mode active
 ```
@@ -304,7 +304,7 @@ interface Ethernet6
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel1 | MLAG_PEER_s1-leaf4_Po1 | switched | trunk | - | - | ['MLAG'] | - | - | - | - |
+| Port-Channel1 | MLAG_PEER_leaf3_Po1 | switched | trunk | - | - | ['MLAG'] | - | - | - | - |
 | Port-Channel2 | SPINES_Po4 | switched | trunk | none | - | - | - | - | 2 | - |
 
 #### Port-Channel Interfaces Device Configuration
@@ -312,7 +312,7 @@ interface Ethernet6
 ```eos
 !
 interface Port-Channel1
-   description MLAG_PEER_s1-leaf4_Po1
+   description MLAG_PEER_leaf3_Po1
    no shutdown
    switchport
    switchport mode trunk
@@ -339,7 +339,7 @@ interface Port-Channel2
 
 | Interface | VRF | IP Address | IP Address Virtual | IP Router Virtual Address | VRRP | ACL In | ACL Out |
 | --------- | --- | ---------- | ------------------ | ------------------------- | ---- | ------ | ------- |
-| Vlan4094 |  default  |  10.1.253.8/31  |  -  |  -  |  -  |  -  |  -  |
+| Vlan4094 |  default  |  10.1.253.9/31  |  -  |  -  |  -  |  -  |  -  |
 
 #### VLAN Interfaces Device Configuration
 
@@ -350,7 +350,7 @@ interface Vlan4094
    no shutdown
    mtu 1500
    no autostate
-   ip address 10.1.253.8/31
+   ip address 10.1.253.9/31
 ```
 
 ## Routing

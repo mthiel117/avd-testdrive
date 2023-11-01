@@ -11,9 +11,9 @@
 #             ip_virtual_router_addresses:
 #               - 10.10.10.1
 #             nodes:
-#               - node: s1-spine1
+#               - node: spine1
 #                 ip_address: 10.10.10.2/24
-#               - node: s1-spine2
+#               - node: spine2
 #                 ip_address: 10.10.10.3/24
 #           - id: 20
 #             name: 'Twenty'
@@ -22,7 +22,7 @@
 #             ip_virtual_router_addresses:
 #               - 10.20.20.1
 #             nodes:
-#               - node: s1-spine1
+#               - node: spine1
 #                 ip_address: 10.20.20.2/24
-#               - node: s1-spine2
+#               - node: spine2
 #                 ip_address: 10.20.20.3/24

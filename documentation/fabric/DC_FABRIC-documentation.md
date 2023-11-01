@@ -17,12 +17,12 @@
 
 | POD | Type | Node | Management IP | Platform | Provisioned in CloudVision | Serial Number |
 | --- | ---- | ---- | ------------- | -------- | -------------------------- | ------------- |
-| DC_FABRIC | leaf | s1-leaf1 | 192.168.0.12/24 | cEOS | Provisioned | - |
-| DC_FABRIC | leaf | s1-leaf2 | 192.168.0.13/24 | cEOS | Provisioned | - |
-| DC_FABRIC | leaf | s1-leaf3 | 192.168.0.14/24 | cEOS | Provisioned | - |
-| DC_FABRIC | leaf | s1-leaf4 | 192.168.0.15/24 | cEOS | Provisioned | - |
-| DC_FABRIC | l3spine | s1-spine1 | 192.168.0.10/24 | cEOS | Provisioned | - |
-| DC_FABRIC | l3spine | s1-spine2 | 192.168.0.11/24 | cEOS | Provisioned | - |
+| DC_FABRIC | leaf | leaf1 | 192.168.0.12/24 | cEOS | Provisioned | - |
+| DC_FABRIC | leaf | leaf2 | 192.168.0.13/24 | cEOS | Provisioned | - |
+| DC_FABRIC | leaf | leaf3 | 192.168.0.14/24 | cEOS | Provisioned | - |
+| DC_FABRIC | leaf | leaf4 | 192.168.0.15/24 | cEOS | Provisioned | - |
+| DC_FABRIC | l3spine | spine1 | 192.168.0.10/24 | cEOS | Provisioned | - |
+| DC_FABRIC | l3spine | spine2 | 192.168.0.11/24 | cEOS | Provisioned | - |
 
 > Provision status is based on Ansible inventory declaration and do not represent real status from CloudVision.
 
@@ -35,20 +35,20 @@
 
 | Type | Node | Node Interface | Peer Type | Peer Node | Peer Interface |
 | ---- | ---- | -------------- | --------- | ----------| -------------- |
-| leaf | s1-leaf1 | Ethernet1 | mlag_peer | s1-leaf2 | Ethernet1 |
-| leaf | s1-leaf1 | Ethernet2 | l3spine | s1-spine1 | Ethernet2 |
-| leaf | s1-leaf1 | Ethernet3 | l3spine | s1-spine2 | Ethernet2 |
-| leaf | s1-leaf1 | Ethernet6 | mlag_peer | s1-leaf2 | Ethernet6 |
-| leaf | s1-leaf2 | Ethernet2 | l3spine | s1-spine1 | Ethernet3 |
-| leaf | s1-leaf2 | Ethernet3 | l3spine | s1-spine2 | Ethernet3 |
-| leaf | s1-leaf3 | Ethernet1 | mlag_peer | s1-leaf4 | Ethernet1 |
-| leaf | s1-leaf3 | Ethernet2 | l3spine | s1-spine1 | Ethernet4 |
-| leaf | s1-leaf3 | Ethernet3 | l3spine | s1-spine2 | Ethernet4 |
-| leaf | s1-leaf3 | Ethernet6 | mlag_peer | s1-leaf4 | Ethernet6 |
-| leaf | s1-leaf4 | Ethernet2 | l3spine | s1-spine1 | Ethernet5 |
-| leaf | s1-leaf4 | Ethernet3 | l3spine | s1-spine2 | Ethernet5 |
-| l3spine | s1-spine1 | Ethernet1 | mlag_peer | s1-spine2 | Ethernet1 |
-| l3spine | s1-spine1 | Ethernet6 | mlag_peer | s1-spine2 | Ethernet6 |
+| leaf | leaf1 | Ethernet1 | mlag_peer | leaf2 | Ethernet1 |
+| leaf | leaf1 | Ethernet2 | l3spine | spine1 | Ethernet2 |
+| leaf | leaf1 | Ethernet3 | l3spine | spine2 | Ethernet2 |
+| leaf | leaf1 | Ethernet6 | mlag_peer | leaf2 | Ethernet6 |
+| leaf | leaf2 | Ethernet2 | l3spine | spine1 | Ethernet3 |
+| leaf | leaf2 | Ethernet3 | l3spine | spine2 | Ethernet3 |
+| leaf | leaf3 | Ethernet1 | mlag_peer | leaf4 | Ethernet1 |
+| leaf | leaf3 | Ethernet2 | l3spine | spine1 | Ethernet4 |
+| leaf | leaf3 | Ethernet3 | l3spine | spine2 | Ethernet4 |
+| leaf | leaf3 | Ethernet6 | mlag_peer | leaf4 | Ethernet6 |
+| leaf | leaf4 | Ethernet2 | l3spine | spine1 | Ethernet5 |
+| leaf | leaf4 | Ethernet3 | l3spine | spine2 | Ethernet5 |
+| l3spine | spine1 | Ethernet1 | mlag_peer | spine2 | Ethernet1 |
+| l3spine | spine1 | Ethernet6 | mlag_peer | spine2 | Ethernet6 |
 
 ## Fabric IP Allocation
 
@@ -72,8 +72,8 @@
 
 | POD | Node | Loopback0 |
 | --- | ---- | --------- |
-| DC_FABRIC | s1-spine1 | 10.1.252.1/32 |
-| DC_FABRIC | s1-spine2 | 10.1.252.2/32 |
+| DC_FABRIC | spine1 | 10.1.252.1/32 |
+| DC_FABRIC | spine2 | 10.1.252.2/32 |
 
 ### VTEP Loopback VXLAN Tunnel Source Interfaces (VTEPs Only)
 

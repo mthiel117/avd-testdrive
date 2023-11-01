@@ -1,4 +1,4 @@
-hostname: s1-leaf4
+hostname: leaf4
 static_routes:
 - vrf: default
   destination_address_prefix: 0.0.0.0/0
@@ -50,7 +50,7 @@ vlan_interfaces:
   mtu: 1500
 port_channel_interfaces:
 - name: Port-Channel1
-  description: MLAG_PEER_s1-leaf3_Po1
+  description: MLAG_PEER_leaf3_Po1
   type: switched
   shutdown: false
   mode: trunk
@@ -65,40 +65,40 @@ port_channel_interfaces:
   mlag: 2
 ethernet_interfaces:
 - name: Ethernet1
-  peer: s1-leaf3
+  peer: leaf3
   peer_interface: Ethernet1
   peer_type: mlag_peer
-  description: MLAG_PEER_s1-leaf3_Ethernet1
+  description: MLAG_PEER_leaf3_Ethernet1
   type: port-channel-member
   shutdown: false
   channel_group:
     id: 1
     mode: active
 - name: Ethernet6
-  peer: s1-leaf3
+  peer: leaf3
   peer_interface: Ethernet6
   peer_type: mlag_peer
-  description: MLAG_PEER_s1-leaf3_Ethernet6
+  description: MLAG_PEER_leaf3_Ethernet6
   type: port-channel-member
   shutdown: false
   channel_group:
     id: 1
     mode: active
 - name: Ethernet2
-  peer: s1-spine1
+  peer: spine1
   peer_interface: Ethernet5
   peer_type: l3spine
-  description: S1-SPINE1_Ethernet5
+  description: SPINE1_Ethernet5
   shutdown: false
   type: port-channel-member
   channel_group:
     id: 2
     mode: active
 - name: Ethernet3
-  peer: s1-spine2
+  peer: spine2
   peer_interface: Ethernet5
   peer_type: l3spine
-  description: S1-SPINE2_Ethernet5
+  description: SPINE2_Ethernet5
   shutdown: false
   type: port-channel-member
   channel_group:
