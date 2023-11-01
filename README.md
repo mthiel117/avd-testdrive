@@ -16,11 +16,13 @@ The initial startup topology is configured as an L2LS design, but can be modifie
 ## Getting started
 
 1. Make a copy of this repo template, by choosing `Use this template` and select `Create a new repository`
-2. From the new repository, under `Code` choose `Create a Codespace` to launch a devcontainer
+2. From the new repository, under `Code` choose `Create a Codespace` to launch a devcontainer.
 
-This will launch a devcontainer in GitHub with VS Code and all the tools needed to run [AVD](https://avd.arista.com/). From the terminal you can run the build.yml playbook to generate configs.
+This will launch a devcontainer in GitHub with VS Code and all the tools needed to run [AVD](https://avd.arista.com/). 
 
 ## Build Configs and Docs
+
+From the terminal, you can run the build.yml playbook as shown below.
 
 ``` bash
 # Option #1 - shortcut to run build playbook (see Makefile)
