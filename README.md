@@ -16,5 +16,9 @@ The initial startup topology is configured as an L2LS design, but can be modifie
 ## Build Configs and Docs
 
 ``` bash
+# Option #1 - shortcut to run build playbook (see Makefile)
 make build
+
+# Option #2 - run ansible command directly
+ansible-playbook playbooks/build.yml
 ```
