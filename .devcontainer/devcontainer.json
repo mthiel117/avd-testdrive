@@ -12,7 +12,6 @@
             "extensions": [
                 "aristapublisher.eos",
                 "eamodio.gitlens",
-                "formulahendry.terminal",
                 "github.vscode-pull-request-github",
                 "lextudio.restructuredtext",
                 "ms-kubernetes-tools.vscode-kubernetes-tools",
