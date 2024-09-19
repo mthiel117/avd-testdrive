@@ -1,6 +1,12 @@
-# AVD Testing
+# AVD Test Drive
 
-This repository contains a base data model for an L2LS design with 2 spines and 4 leafs. Leaf 3 and 4 are configured as an MLAG pair. Adapt the data model as needed to test AVD features and the rendered EOS configs.
+This repository allows you to explore using AVD to build configurations and documentation.
+
+You can open the repo as a codespace or clone it a local machine and run as a devcontainer.
+
+This base data model includes an L2LS design with 2 spines and 4 leafs. Leaf 3 and 4 are configured as an MLAG pair. Adapt the data model as needed to test AVD features and the rendered EOS configs.
+
+AVD Documentation can be found [here](https://avd.arista.com/4.10/).
 
 ## Initial Topology
 
@@ -30,4 +36,13 @@ make build
 
 # Option #2 - run ansible command directly
 ansible-playbook playbooks/build.yml
+```
+
+## Review - Configuration and Documentation
+
+Output of the build process, store files in the following directories
+
+``` text
+- documentation/devices
+- intended/configs
 ```
