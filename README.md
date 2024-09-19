@@ -22,7 +22,7 @@ The initial startup topology is configured as an L2LS design, but can be modifie
 1. Make a copy of this repo template, by choosing `Use this template` and select `Create a new repository`
 2. From the new repository, under `Code` choose `Create a Codespace` to launch a devcontainer.
 
-<img src="images/codespace.png" width="250">
+<img src="images/codespace.png" width="300">
 
 [Learn more about codespaces](https://docs.github.com/en/codespaces)
 
