@@ -125,13 +125,13 @@ management api http-commands
 
 | User | Privilege | Role | Disabled | Shell |
 | ---- | --------- | ---- | -------- | ----- |
-| arista | 15 | network-admin | False | - |
+| admin | 15 | network-admin | False | - |
 
 #### Local Users Device Configuration
 
 ```eos
 !
-username arista privilege 15 role network-admin secret sha512 <removed>
+username admin privilege 15 role network-admin secret sha512 <removed>
 ```
 
 ### AAA Authorization

@@ -17,10 +17,10 @@ spanning_tree:
     priority: 16384
   no_spanning_tree_vlan: '4094'
 local_users:
-- name: arista
+- name: admin
   privilege: 15
   role: network-admin
-  sha512_password: $6$workshop$6LXuC5v6vgv68g0deZIK4taADHFnBz3kHX56WVIuydf7c0BCzgfJnvneZeQcDHfB6r82uSw3IqdyQIYUOrnSW/
+  sha512_password: insert_sha512_password_here
 vrfs:
 - name: default
   ip_routing: false
