@@ -15,14 +15,14 @@ The initial startup topology is configured as an L2LS design, but can be modifie
 - (2) SVIs - VLAN 10 and 20
 - (2) Hosts
 
-![L2LS Topology](/images/avd-testing-topo.png)
+<img src="images/avd-testing-topo.png" width="600">
 
 ## Getting started
 
 1. Make a copy of this repo template, by choosing `Use this template` and select `Create a new repository`
 2. From the new repository, under `Code` choose `Create a Codespace` to launch a devcontainer.
 
-![codespace](images/codespace.png)
+<img src="images/codespace.png" width="400">
 
 [Learn more about codespaces](https://docs.github.com/en/codespaces)
 
@@ -49,4 +49,4 @@ Output of the build process, store files in the following directories
 - intended/configs
 ```
 
-![Files](images/files.png)
+<img src="images/files.png" height="400">
