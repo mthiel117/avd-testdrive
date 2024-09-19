@@ -23,12 +23,10 @@ servers:
   - name: host1                                      # Server name
     rack: RACK1                                      # Informational RACK (optional)
     adapters:
-      - endpoint_ports: [ eth1, eth2 ]               # Server port to connect (optional)
-        switch_ports: [ Ethernet5, Ethernet5 ]       # Switch port to connect server (required)
-        switches: [ leaf1, leaf2 ]                   # Switch to connect server (required)
+      - endpoint_ports: [ eth1 ]                     # Server port to connect (optional)
+        switch_ports: [ Ethernet5 ]                  # Switch port to connect server (required)
+        switches: [ leaf1 ]                   # Switch to connect server (required)
         profile: PP-VLAN10                           # Port profile to apply (required)
-        port_channel:
-          mode: active
 
 # --------------------------------------------------------#
 # DC RACK2 Endpoints

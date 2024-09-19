@@ -18,10 +18,10 @@ avd_data_validation_mode: error
 
 # Local Users
 local_users:
-  - name: arista
+  - name: admin
     privilege: 15
     role: network-admin
-    sha512_password: "{{ ansible_password | password_hash(salt='workshop') }}"
+    sha512_password: "insert_sha512_password_here"
 
 # AAA
 aaa_authorization:
