@@ -37,8 +37,6 @@
 | ---- | ---- | -------------- | --------- | ----------| -------------- |
 | leaf | leaf1 | Ethernet1 | l3spine | spine1 | Ethernet1 |
 | leaf | leaf1 | Ethernet2 | l3spine | spine2 | Ethernet1 |
-| leaf | leaf1 | Ethernet3 | mlag_peer | leaf2 | Ethernet3 |
-| leaf | leaf1 | Ethernet4 | mlag_peer | leaf2 | Ethernet4 |
 | leaf | leaf2 | Ethernet1 | l3spine | spine1 | Ethernet2 |
 | leaf | leaf2 | Ethernet2 | l3spine | spine2 | Ethernet2 |
 | leaf | leaf3 | Ethernet1 | l3spine | spine1 | Ethernet3 |

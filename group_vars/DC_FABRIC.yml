@@ -38,6 +38,7 @@ leaf:
     mlag_interfaces: [ Ethernet3, Ethernet4 ]
   node_groups:
     - group: RACK1
+      mlag: false
       filter:
         tags: [ "Web" ]
       nodes:

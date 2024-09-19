@@ -281,7 +281,7 @@ vlan 4094
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
 | Ethernet1 | LEAF1_Ethernet1 | *trunk | *10 | *- | *- | 1 |
-| Ethernet2 | LEAF2_Ethernet1 | *trunk | *10 | *- | *- | 1 |
+| Ethernet2 | LEAF2_Ethernet1 | *trunk | *10 | *- | *- | 2 |
 | Ethernet3 | LEAF3_Ethernet1 | *trunk | *20 | *- | *- | 3 |
 | Ethernet4 | LEAF4_Ethernet1 | *trunk | *20 | *- | *- | 3 |
 | Ethernet5 | MLAG_PEER_spine2_Ethernet5 | *trunk | *- | *- | *['LEAF_PEER_L3', 'MLAG'] | 5 |
@@ -301,7 +301,7 @@ interface Ethernet1
 interface Ethernet2
    description LEAF2_Ethernet1
    no shutdown
-   channel-group 1 mode active
+   channel-group 2 mode active
 !
 interface Ethernet3
    description LEAF3_Ethernet1
@@ -332,7 +332,8 @@ interface Ethernet6
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel1 | RACK1_Po1 | switched | trunk | 10 | - | - | - | - | 1 | - |
+| Port-Channel1 | LEAF1_Po1 | switched | trunk | 10 | - | - | - | - | 1 | - |
+| Port-Channel2 | LEAF2_Po1 | switched | trunk | 10 | - | - | - | - | 2 | - |
 | Port-Channel3 | RACK2_Po1 | switched | trunk | 20 | - | - | - | - | 3 | - |
 | Port-Channel5 | MLAG_PEER_spine2_Po5 | switched | trunk | - | - | ['LEAF_PEER_L3', 'MLAG'] | - | - | - | - |
 
@@ -341,12 +342,20 @@ interface Ethernet6
 ```eos
 !
 interface Port-Channel1
-   description RACK1_Po1
+   description LEAF1_Po1
    no shutdown
    switchport
    switchport trunk allowed vlan 10
    switchport mode trunk
    mlag 1
+!
+interface Port-Channel2
+   description LEAF2_Po1
+   no shutdown
+   switchport
+   switchport trunk allowed vlan 10
+   switchport mode trunk
+   mlag 2
 !
 interface Port-Channel3
    description RACK2_Po1
